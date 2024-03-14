@@ -1,7 +1,15 @@
 import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
 
+import { DepartamentosController } from "../../controllers";
+
 const router = Router();
+
+router.post(
+  "/departamento",
+  DepartamentosController.createValidation,
+  DepartamentosController.create
+);
 
 router.get("/teste", (req, res) => {
   console.log(req.body);
