@@ -2,15 +2,13 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
-
-interface IDepartamento {
-  nome: string;
-}
+import { IDepartamento } from "../../database/models";
 
 export const createValidation = validation((getSchema) => ({
   body: getSchema<IDepartamento>(
     yup.object().shape({
       nome: yup.string().required(),
+      descricao: yup.string().required(),
     })
   ),
 }));
