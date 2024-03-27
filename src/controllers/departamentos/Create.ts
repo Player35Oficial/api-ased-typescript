@@ -10,6 +10,7 @@ export const createValidation = validation((getSchema) => ({
     yup.object().shape({
       nome: yup.string().required(),
       descricao: yup.string().required(),
+      status: yup.string().required(),
     })
   ),
 }));

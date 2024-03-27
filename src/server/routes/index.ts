@@ -18,5 +18,20 @@ router.post(
 );
 
 router.get("/departamento", DepartamentosController.getAll);
+router.delete(
+  "/departamento/:id_departamento",
+  DepartamentosController.deleteByIdValidation,
+  DepartamentosController.deleteById
+);
+router.get(
+  "/departamento/:id_departamento",
+  DepartamentosController.getByIdValidation,
+  DepartamentosController.getById
+);
+router.put(
+  "/departamento/:id_departamento",
+  DepartamentosController.updateByIdValidation,
+  DepartamentosController.updateById
+);
 
 export { router };
