@@ -11,9 +11,7 @@ export const updateById = async (
       .update(departamento)
       .where("id_departamento", "=", id_departamento);
 
-    if (!result) {
-      return new Error("Registro não encontrado");
-    }
+    if (!result) return new Error("Registro não encontrado");
 
     return result;
   } catch (error) {
