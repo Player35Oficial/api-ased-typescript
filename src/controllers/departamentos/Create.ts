@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
 import { IDepartamento } from "../../server/database/models";
-import { DepartamentosProvider } from "../../server/database/provider/departamento";
+import { DepartamentosProvider } from "../../server/database/providers/departamento";
 
 export const createValidation = validation((getSchema) => ({
   body: getSchema<IDepartamento>(

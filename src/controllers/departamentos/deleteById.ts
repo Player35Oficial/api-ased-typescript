@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { validation } from "../../shared/middlewares";
 import * as yup from "yup";
-import { DepartamentosProvider } from "../../server/database/provider/departamento";
+import { DepartamentosProvider } from "../../server/database/providers/departamento";
 
 interface IParamProps {
   id_departamento?: number;

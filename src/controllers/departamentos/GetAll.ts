@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { DepartamentosProvider } from "../../server/database/provider/departamento";
+import { DepartamentosProvider } from "../../server/database/providers/departamento";
 
 export const getAll = async (req: Request<{}, {}, {}, {}>, res: Response) => {
   const result = await DepartamentosProvider.getAll();
