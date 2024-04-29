@@ -2,7 +2,9 @@ import { ETableNames } from "../../ETableNames";
 import { Knex } from "../../knex";
 import { ICargo } from "../../models/Cargo";
 
-export const create = async (cargo: ICargo): Promise<number | Error> => {
+export const create = async (
+  cargo: Omit<ICargo, "id_cargo">
+): Promise<number | Error> => {
   try {
     const [result] = await Knex(ETableNames.cargo)
       .insert(cargo)
