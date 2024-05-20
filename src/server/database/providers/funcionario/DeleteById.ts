@@ -1,7 +1,7 @@
 import { ETableNames } from "../../ETableNames";
 import { Knex } from "../../knex";
 
-export const getById = async (
+export const deleteById = async (
   id_funcionario: number
 ): Promise<void | Error> => {
   try {
