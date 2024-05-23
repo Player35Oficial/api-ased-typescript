@@ -3,7 +3,7 @@ import { Knex } from "../../knex";
 import { IEvento } from "../../models/Evento";
 
 export const createEventoWithFuncionario = async (
-  evento: IEvento,
+  evento: Omit<IEvento, "id_evento">,
   funcionarioIds: number[]
 ): Promise<number | Error> => {
   try {
