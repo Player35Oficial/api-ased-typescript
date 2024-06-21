@@ -6,7 +6,7 @@ export const getById = async (id_cargo: number): Promise<ICargo | Error> => {
   try {
     const result = await Knex(ETableNames.cargo)
       .select("*")
-      .where("id_cargo_cargo", "=", id_cargo)
+      .where("id_cargo", "=", id_cargo)
       .first();
 
     if (result) return result;

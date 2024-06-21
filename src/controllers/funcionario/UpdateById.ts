@@ -15,12 +15,12 @@ export const updateByIdValidation = validation((getSchema) => ({
       id_funcionario: yup.number().required().integer().positive(),
     })
   ),
-  body: getSchema<Omit<IFuncionario, "id_funcionario">>(
+  body: getSchema<Partial<Omit<IFuncionario, "id_funcionario">>>(
     yup.object().shape({
-      nome: yup.string().required().min(3),
-      bio: yup.string().required().min(10),
-      id_cargo: yup.number().required().integer().positive(),
-      id_departamento: yup.number().required().integer().positive(),
+      nome: yup.string().optional().min(3),
+      bio: yup.string().optional().min(10),
+      id_cargo: yup.number().optional().integer().positive(),
+      id_departamento: yup.number().optional().integer().positive(),
     })
   ),
 }));
@@ -30,7 +30,7 @@ export const updateById = async (
   res: Response
 ) => {
   if (!req.params.id_funcionario) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
+    return res.sendStatus(StatusCodes.BAD_REQUEST).json({
       errors: { default: "O parâmetro 'id_funcionario' é obrigatório" },
     });
   }
@@ -41,12 +41,12 @@ export const updateById = async (
   );
 
   if (result instanceof Error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
         default: result.message,
       },
     });
   }
 
-  return res.status(StatusCodes.OK).send(result);
+  return res.sendStatus(StatusCodes.OK).send(result);
 };

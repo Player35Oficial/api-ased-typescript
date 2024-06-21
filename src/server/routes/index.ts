@@ -63,7 +63,7 @@ router
 
 router
   .route("/funcionario/:id_funcionario")
-  .get(CargoController.getByIdValidation, CargoController.getById)
+  .get(FuncionarioController.getByIdValidation, FuncionarioController.getById)
   .delete(
     FuncionarioController.deleteByIdValidation,
     FuncionarioController.deleteById

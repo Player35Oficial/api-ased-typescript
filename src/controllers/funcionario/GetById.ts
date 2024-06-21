@@ -5,7 +5,7 @@ import { FuncionarioProvider } from "../../server/database/providers/funcionario
 import { StatusCodes } from "http-status-codes";
 
 interface IParamProps {
-  id_funcionario: number;
+  id_funcionario?: number;
 }
 
 export const getByIdValidation = validation((getSchema) => ({
@@ -17,6 +17,12 @@ export const getByIdValidation = validation((getSchema) => ({
 }));
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
+  if (!req.params.id_funcionario) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: { default: "O parâmetro 'id_funcionario' é obrigatório" },
+    });
+  }
+
   const result = await FuncionarioProvider.getById(req.params.id_funcionario);
 
   if (result instanceof Error) {

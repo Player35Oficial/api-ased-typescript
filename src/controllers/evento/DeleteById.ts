@@ -25,7 +25,7 @@ export const deleteById = async (req: Request<IParamProps>, res: Response) => {
     });
   }
 
-  const result = await EventosProvider.deleteEventoWithFuncionario(id_evento);
+  const result = await EventosProvider.deleteById(id_evento);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

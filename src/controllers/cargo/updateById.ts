@@ -25,7 +25,7 @@ export const updateByIdValidation = validation((getSchema) => ({
 
 export const updateById = async (req: Request<IParamProps>, res: Response) => {
   if (!req.params.id_cargo) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
+    return res.sendStatus(StatusCodes.BAD_REQUEST).json({
       errors: {
         default: "O parâmetro 'id_cargo' é obrigatório!",
       },
@@ -33,14 +33,14 @@ export const updateById = async (req: Request<IParamProps>, res: Response) => {
   }
 
   const result = await CargoProvider.updateById(req.params.id_cargo, req.body);
-
+  console.log(result);
   if (result instanceof Error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
         default: result.message,
       },
     });
   }
 
-  return res.status(StatusCodes.OK).send(result);
+  return res.sendStatus(StatusCodes.OK).send(result);
 };

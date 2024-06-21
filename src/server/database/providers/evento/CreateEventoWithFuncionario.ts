@@ -7,33 +7,37 @@ export const createEventoWithFuncionario = async (
   funcionarioIds: number[]
 ): Promise<number | Error> => {
   try {
-    // const [result] = await Knex(ETableNames.evento)
-    //   .insert(evento)
-    //   .returning("id_evento");
-    // if (typeof result === "object") {
-    //   return result.id;
-    // } else if (typeof result === "number") {
-    //   return result;
-    // }
-    const res = await Knex.transaction(async (trx) => {
-      const [id_evento] = await trx(ETableNames.evento).insert(evento);
+    // Criar evento
+    const result = await Knex(ETableNames.evento)
+      .insert(evento)
+      .returning("id_evento");
 
-      const associatedFuncionarios = funcionarioIds.map((id_funcionario) => {
-        id_evento;
-        id_funcionario;
-      });
+    console.log(result.id_evento);
 
-      const created_event_with_success: number = await trx(
-        ETableNames.evento_funcionario
-      )
-        .insert(associatedFuncionarios)
-        .returning("id_evento");
+    const [id_evento] = result; // Pega o id_evento retornado
+    console.log(id_evento);
 
-      return created_event_with_success;
-    });
-    return res;
+    if (id_evento) {
+      try {
+        await addFuncionario(id_evento, funcionarioIds); // Propaga o id_evento para a função
+      } catch (error) {
+        console.error("Erro ao adicionar funcionários ao evento", error);
+        // Caso deseje, pode-se lançar uma exceção aqui
+      }
+    }
+
+    return id_evento;
   } catch (error) {
-    console.log(error);
+    console.error("Erro ao criar registro", error);
     return new Error("Erro ao criar registro");
   }
+};
+
+const addFuncionario = async (id_evento: number, funcionarioIds: number[]) => {
+  funcionarioIds.forEach(async (funcionarioId) => {
+    await Knex(ETableNames.evento_funcionario).insert({
+      id_evento,
+      id_funcionario: funcionarioId,
+    });
+  });
 };
