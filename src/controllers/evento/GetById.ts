@@ -5,7 +5,7 @@ import { EventosProvider } from "../../server/database/providers/evento";
 import { StatusCodes } from "http-status-codes";
 
 interface IParamProps {
-  id_evento: number;
+  id_evento?: number;
 }
 
 export const getByIdValidation = validation((getSchema) => ({
@@ -17,6 +17,12 @@ export const getByIdValidation = validation((getSchema) => ({
 }));
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
+  if (!req.params.id_evento) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: { default: "O parâmetro 'id_evento' é obrigatório" },
+    });
+  }
+
   const result = await EventosProvider.getAll();
 
   if (result instanceof Error) {

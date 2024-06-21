@@ -5,7 +5,7 @@ import { EventosProvider } from "../../server/database/providers/evento";
 import { StatusCodes } from "http-status-codes";
 
 interface IParamProps {
-  id_evento: number;
+  id_evento?: number;
 }
 
 export const deleteByIdValidation = validation((getSchema) => ({
@@ -18,6 +18,12 @@ export const deleteByIdValidation = validation((getSchema) => ({
 
 export const deleteById = async (req: Request<IParamProps>, res: Response) => {
   const { id_evento } = req.params;
+
+  if (!id_evento) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: { default: "O parâmetro 'id_evento' é obrigatório" },
+    });
+  }
 
   const result = await EventosProvider.deleteEventoWithFuncionario(id_evento);
 

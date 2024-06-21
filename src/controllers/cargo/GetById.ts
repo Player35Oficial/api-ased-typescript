@@ -5,7 +5,7 @@ import { validation } from "../../shared/middlewares";
 import * as yup from "yup";
 
 interface IParamProps {
-  id_cargo: number;
+  id_cargo?: number;
 }
 
 export const getByIdValidation = validation((getSchema) => ({
@@ -17,6 +17,12 @@ export const getByIdValidation = validation((getSchema) => ({
 }));
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
+  if (!req.params.id_cargo) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: { default: "O parâmetro 'id_cargo' é obrigatório" },
+    });
+  }
+
   const result = await CargoProvider.getById(req.params.id_cargo);
 
   if (result instanceof Error) {

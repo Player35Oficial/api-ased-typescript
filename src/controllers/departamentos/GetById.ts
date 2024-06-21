@@ -18,21 +18,18 @@ export const getByIdValidation = validation((getSchema) => ({
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
   if (!req.params.id_departamento) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({
-        errors: {
-          default: "O parâmetro 'id_departamento' precisa ser informado.",
-        },
-      })
-      .end();
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: "O parâmetro 'id_departamento' precisa ser informado.",
+      },
+    });
   }
 
   const result = await DepartamentosProvider.getById(
     req.params.id_departamento
   );
   if (result instanceof Error) {
-    res
+    return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({
         errors: {
@@ -42,5 +39,5 @@ export const getById = async (req: Request<IParamProps>, res: Response) => {
       .end();
   }
 
-  return res.status(StatusCodes.OK).send(result).end();
+  return res.status(StatusCodes.OK).send(result);
 };

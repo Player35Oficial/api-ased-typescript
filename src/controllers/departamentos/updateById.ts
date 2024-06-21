@@ -50,6 +50,6 @@ export const updateById = async (
       },
     });
   } else {
-    res.sendStatus(StatusCodes.OK).send(result);
+    return res.sendStatus(StatusCodes.OK).send(result);
   }
 };

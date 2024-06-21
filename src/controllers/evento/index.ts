@@ -1,13 +1,13 @@
-// import * as create from "./Create";
-// import * as deleteById from "./deleteById";
-// import * as getAll from "./GetAll";
-// import * as updateById from "./updateById";
-// import * as getById from "./GetById";
+import * as create from "./Create";
+import * as deleteById from "./DeleteById";
+import * as getAll from "./GetAll";
+import * as updateById from "./UpdateById";
+import * as getById from "./GetById";
 
 export const EventoController = {
-  // ...create,
-  // ...deleteById,
-  // ...getAll,
-  // ...updateById,
-  // ...getById,
+  ...create,
+  ...deleteById,
+  ...getAll,
+  ...updateById,
+  ...getById,
 };

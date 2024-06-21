@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { CargoProvider } from "../../server/database/providers/cargo";
 import { StatusCodes } from "http-status-codes";
 

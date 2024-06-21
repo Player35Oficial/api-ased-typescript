@@ -6,7 +6,7 @@ import { StatusCodes } from "http-status-codes";
 import { EventosProvider } from "../../server/database/providers/evento";
 
 interface IParamProps {
-  id_evento: number;
+  id_evento?: number;
 }
 
 export const updateByIdValidation = validation((getSchema) => ({

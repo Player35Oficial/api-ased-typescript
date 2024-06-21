@@ -6,7 +6,7 @@ import { CargoProvider } from "../../server/database/providers/cargo";
 import { StatusCodes } from "http-status-codes";
 
 interface IParamProps {
-  id_cargo: number;
+  id_cargo?: number;
 }
 
 export const updateByIdValidation = validation((getSchema) => ({
@@ -24,6 +24,14 @@ export const updateByIdValidation = validation((getSchema) => ({
 }));
 
 export const updateById = async (req: Request<IParamProps>, res: Response) => {
+  if (!req.params.id_cargo) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: "O parâmetro 'id_cargo' é obrigatório!",
+      },
+    });
+  }
+
   const result = await CargoProvider.updateById(req.params.id_cargo, req.body);
 
   if (result instanceof Error) {
