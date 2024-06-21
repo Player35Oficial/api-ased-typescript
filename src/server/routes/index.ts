@@ -44,6 +44,12 @@ router
   .get(CargoController.getAll)
   .post(CargoController.createValidation, CargoController.create);
 
+router
+  .route("/cargo/:id_cargo")
+  .get(CargoController.getByIdValidation, CargoController.getById)
+  .delete(CargoController.deleteByIdValidation, CargoController.deleteById)
+  .put(CargoController.updateByIdValidation, CargoController.updateById);
+
 // FUNCIONARIO
 router
   .route("/cargo/:id_cargo")
