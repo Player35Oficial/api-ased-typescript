@@ -34,12 +34,12 @@ export const create = async (
   );
 
   if (result instanceof Error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
         default: result.message,
       },
     });
   }
 
-  return res.status(StatusCodes.OK).send(result);
+  return res.sendStatus(StatusCodes.OK).send(result);
 };
