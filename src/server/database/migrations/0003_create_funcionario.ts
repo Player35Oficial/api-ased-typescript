@@ -17,10 +17,12 @@ export async function up(knex: Knex) {
       // CONSTRAINTS
       table
         .foreign("id_cargo", "FK_CARGO_FUNCIONARIO")
-        .references("cargo.id_cargo");
+        .references("cargo.id_cargo")
+        .onDelete("CASCADE");
       table
         .foreign("id_departamento", "FK_DEPARTAMENTO_FUNCIONARIO")
-        .references("departamento.id_departamento");
+        .references("departamento.id_departamento")
+        .onDelete("CASCADE");
     })
     .then(() => {
       console.log(`# Created table ${ETableNames.funcionario}`);

@@ -2,6 +2,9 @@ import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
 
 import { DepartamentosController } from "../../controllers";
+import { CargoController } from "../../controllers/cargo";
+import { FuncionarioController } from "../../controllers/funcionario";
+import { EventoController } from "../../controllers/evento";
 
 const router = Router();
 
@@ -11,27 +14,75 @@ router.get("/", (req, res) => {
   return res.send("olá, Dev!").status(StatusCodes.OK);
 });
 
-router.post(
-  "/departamento",
-  DepartamentosController.createValidation,
-  DepartamentosController.create
-);
+// DEPARTAMENTO
+router
+  .route("/departamento")
+  .post(
+    DepartamentosController.createValidation,
+    DepartamentosController.create
+  )
+  .get(DepartamentosController.getAll);
 
-router.get("/departamento", DepartamentosController.getAll);
-router.delete(
-  "/departamento/:id_departamento",
-  DepartamentosController.deleteByIdValidation,
-  DepartamentosController.deleteById
-);
-router.get(
-  "/departamento/:id_departamento",
-  DepartamentosController.getByIdValidation,
-  DepartamentosController.getById
-);
-router.put(
-  "/departamento/:id_departamento",
-  DepartamentosController.updateByIdValidation,
-  DepartamentosController.updateById
-);
+router
+  .route("/departamento/:id_departamento")
+  .delete(
+    DepartamentosController.deleteByIdValidation,
+    DepartamentosController.deleteById
+  )
+  .get(
+    DepartamentosController.getByIdValidation,
+    DepartamentosController.getById
+  )
+  .put(
+    DepartamentosController.updateByIdValidation,
+    DepartamentosController.updateById
+  );
+
+// CARGO
+router
+  .route("/cargo")
+  .get(CargoController.getAll)
+  .post(CargoController.createValidation, CargoController.create);
+
+router
+  .route("/cargo/:id_cargo")
+  .get(CargoController.getByIdValidation, CargoController.getById)
+  .delete(CargoController.deleteByIdValidation, CargoController.deleteById)
+  .put(CargoController.updateByIdValidation, CargoController.updateById);
+
+// FUNCIONARIO
+router
+  .route("/cargo/:id_cargo")
+  .delete(CargoController.deleteByIdValidation, CargoController.deleteById)
+  .put(CargoController.updateByIdValidation, CargoController.updateById);
+
+router
+  .route("/funcionario")
+  .get(FuncionarioController.getAll)
+  .post(FuncionarioController.createValidation, FuncionarioController.create);
+
+router
+  .route("/funcionario/:id_funcionario")
+  .get(FuncionarioController.getByIdValidation, FuncionarioController.getById)
+  .delete(
+    FuncionarioController.deleteByIdValidation,
+    FuncionarioController.deleteById
+  )
+  .put(
+    FuncionarioController.updateByIdValidation,
+    FuncionarioController.updateById
+  );
+
+// EVENTO
+router
+  .route("/evento")
+  .get(EventoController.getAll)
+  .post(EventoController.createValidation, EventoController.create);
+
+router
+  .route("/evento/:id_evento")
+  .get(EventoController.getByIdValidation, EventoController.getById)
+  .delete(EventoController.deleteByIdValidation, EventoController.deleteById)
+  .put(EventoController.updateByIdValidation, EventoController.updateById);
 
 export { router };

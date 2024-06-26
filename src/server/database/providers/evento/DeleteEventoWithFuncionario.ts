@@ -1,7 +1,7 @@
 import { ETableNames } from "../../ETableNames";
 import { Knex } from "../../knex";
 
-export const createEventoWithFuncionario = async (
+export const deleteEventoWithFuncionario = async (
   id_evento: number
 ): Promise<void | Error> => {
   try {

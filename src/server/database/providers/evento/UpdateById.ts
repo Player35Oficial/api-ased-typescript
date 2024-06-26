@@ -12,6 +12,8 @@ export const updateById = async (
       .where("id_evento", "=", id_evento);
 
     if (!result) return new Error("Registro não encontrado!");
+
+    return result;
   } catch (error) {
     console.log(error);
     return new Error("Erro ao atualizar registro");

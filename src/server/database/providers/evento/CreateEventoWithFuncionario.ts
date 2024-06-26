@@ -1,39 +1,31 @@
 import { ETableNames } from "../../ETableNames";
 import { Knex } from "../../knex";
 import { IEvento } from "../../models/Evento";
+import { addFuncionario } from "./AddFuncionarioAtEvent";
+
+interface result {
+  id_evento: number;
+}
 
 export const createEventoWithFuncionario = async (
-  evento: IEvento,
+  evento: Omit<IEvento, "id_evento">,
   funcionarioIds: number[]
 ): Promise<number | Error> => {
   try {
-    // const [result] = await Knex(ETableNames.evento)
-    //   .insert(evento)
-    //   .returning("id_evento");
-    // if (typeof result === "object") {
-    //   return result.id;
-    // } else if (typeof result === "number") {
-    //   return result;
-    // }
-    const res = await Knex.transaction(async (trx) => {
-      const [id_evento] = await trx(ETableNames.evento).insert(evento);
+    // Criar evento
+    const [result]: result[] = await Knex(ETableNames.evento)
+      .insert(evento)
+      .returning("id_evento");
 
-      const associatedFuncionarios = funcionarioIds.map((id_funcionario) => {
-        id_evento;
-        id_funcionario;
-      });
+    addFuncionario(result.id_evento, funcionarioIds);
 
-      const created_event_with_success: number = await trx(
-        ETableNames.evento_funcionario
-      )
-        .insert(associatedFuncionarios)
-        .returning("id_evento");
-
-      return created_event_with_success;
-    });
-    return res;
+    if (typeof result === "undefined") {
+      return new Error("Erro desconhecido");
+    } else {
+      return result.id_evento;
+    }
   } catch (error) {
-    console.log(error);
+    console.error("Erro ao criar registro", error);
     return new Error("Erro ao criar registro");
   }
 };
