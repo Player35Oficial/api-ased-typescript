@@ -3,6 +3,7 @@ import * as deleteById from "./deleteById";
 import * as getAll from "./GetAll";
 import * as updateById from "./updateById";
 import * as getById from "./GetById";
+import * as updateStatusById from "./updateStatusById";
 
 export const DepartamentosController = {
   ...create,
@@ -10,4 +11,5 @@ export const DepartamentosController = {
   ...getAll,
   ...updateById,
   ...getById,
+  ...updateStatusById,
 };

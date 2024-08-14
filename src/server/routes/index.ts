@@ -38,6 +38,13 @@ router
     DepartamentosController.updateById
   );
 
+router
+  .route("/departamento/:id_departamento/status")
+  .put(
+    DepartamentosController.updateStatusByIdValidation,
+    DepartamentosController.updateStatusById
+  );
+
 // CARGO
 router
   .route("/cargo")
